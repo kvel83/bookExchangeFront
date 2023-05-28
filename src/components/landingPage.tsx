@@ -1,14 +1,25 @@
-import { CssBaseline, useTheme } from '@mui/material';
+import { CssBaseline, DialogTitle, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import landingImage from '../assets/nombre.png';
 import kidsReading from '../assets/kidsReading.png';
+import { useState } from 'react';
+import LoginForm from './loginForm';
 
 
 const LandingPage = () => {
   const theme = useTheme();
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () =>{
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   return (
     <div>
@@ -33,9 +44,13 @@ const LandingPage = () => {
           </Grid>
         </Grid>
         <Grid container sx = {{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 3}}>
-            <Button variant='contained' size = 'large'>
+            <Button
+              variant='contained'
+              size = 'large'
+              onClick={handleOpen}>
                 Iniciar sesión
             </Button>
+            <LoginForm open = {open} onClose = {handleClose} />
             <Button variant = 'outlined' size = 'large'>
                 Crear cuenta
             </Button>
