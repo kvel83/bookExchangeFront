@@ -1,5 +1,5 @@
 import './App.css'
-import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { Box, Container, CssBaseline, ThemeProvider } from '@mui/material';
 import themeOptions from './config/otherTheme';
 import ResponsiveAppBar from './components/AppBar';
 import LandingPage from './components/landingPage';
@@ -7,12 +7,16 @@ import LandingPage from './components/landingPage';
 function App() {
   return (
   <>
-    <CssBaseline/>
     <ThemeProvider theme={themeOptions}>
-      <Container maxWidth='xl'>
+      <CssBaseline/>
+      <Box sx = {{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
         <ResponsiveAppBar/>
-        <LandingPage />
-      </Container>
+          <Box sx = {{flexGrow: 1}}>
+            <Container maxWidth = 'xl'>
+              <LandingPage />
+            </Container>
+          </Box>
+        </Box>
     </ThemeProvider>
   </>
   );

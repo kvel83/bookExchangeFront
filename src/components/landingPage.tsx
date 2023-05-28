@@ -3,7 +3,8 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
-import name from '../assets/nombre.png';
+import landingImage from '../assets/nombre.png';
+import kidsReading from '../assets/kidsReading.png';
 
 
 const LandingPage = () => {
@@ -13,38 +14,31 @@ const LandingPage = () => {
     <div>
     <CssBaseline/>
       <Container maxWidth="sm">
-        <Grid container spacing={2} alignItems="center">
-          <Grid item xs={6}>
+        <Grid container spacing={2} sx = {{flexWrap: 'nowrap', gap: '5rem', alignItems: 'center'}}>
+          <Grid item xs={6} sx = {{display: 'flex', justifyContent: 'right', ml: '2rem', alignItems: 'center', marginTop: '2rem'}}>
             <img
-              src={name}
+              src={landingImage}
               alt="Landing Page Image"
               className = 'landing-image'
               style={theme.landingImage}
             />
           </Grid>
-          <Grid item xs = {6}>
+          <Grid item xs={6} sx = {{display: 'flex', justifyContent: 'left', alignItems: 'center', mr: '2rem'}}>
             <img
-                src=''
-                alt='kids Reading'
-                className='kids-reading'
-                style={{width: '100%'}}
+                src = {kidsReading}
+                alt = "Niños leyendo"
+                className = 'kids-reading'
+                style={theme.kidsReading}
             />
           </Grid>
-          <Grid item xs={12} sx = {{ display: 'flex', justifyContent: 'center', mt: 2}}>
-            <Button
-              variant="contained"
-              color="primary"
-            >
+        </Grid>
+        <Grid container sx = {{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 3}}>
+            <Button variant='contained' size = 'large'>
                 Iniciar sesión
             </Button>
-            <Button
-              variant="outlined"
-              color="primary"
-              sx = {{ml: 2}}
-            >
-              Crear cuenta
+            <Button variant = 'outlined' size = 'large'>
+                Crear cuenta
             </Button>
-          </Grid>
         </Grid>
       </Container>
     </div>

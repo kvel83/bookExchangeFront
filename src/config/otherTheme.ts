@@ -10,6 +10,10 @@ declare module '@mui/material/styles' {
       width: string;
       height: string;
     };
+    kidsReading?:{
+      width: string;
+      height: string;
+    };
   }
   interface ThemeOptions{
     logoImage?: {
@@ -17,6 +21,10 @@ declare module '@mui/material/styles' {
       height: string;
     };
     landingImage?:{
+      width: string;
+      height: string;
+    };
+    kidsReading?:{
       width: string;
       height: string;
     };
@@ -59,8 +67,12 @@ export const themeOptions: ThemeOptions = {
     height: '120px'
   },
   landingImage:{
-    width: '500px',
-    height: '500px',
+    width: '40rem',
+    height: '40rem',
+  },
+  kidsReading:{
+    width: '30rem',
+    height: '30rem',
   },
 };
 
