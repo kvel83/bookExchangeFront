@@ -1,13 +1,20 @@
 import './App.css'
-import { Button, Container } from '../node_modules/@mui/material/index'
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import themeOptions from './config/otherTheme';
+import ResponsiveAppBar from './components/AppBar';
+import LandingPage from './components/landingPage';
 
 function App() {
   return (
-    <Container maxWidth='xl'>
-      <Button variant='contained'>
-        Mi boton
-      </Button>
-    </Container>
+  <>
+    <CssBaseline/>
+    <ThemeProvider theme={themeOptions}>
+      <Container maxWidth='xl'>
+        <ResponsiveAppBar/>
+        <LandingPage />
+      </Container>
+    </ThemeProvider>
+  </>
   );
 }
 

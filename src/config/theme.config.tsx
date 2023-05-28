@@ -7,8 +7,8 @@ type ThemeProp = {
 export enum themePalette{
     BG = '#ACB1D6',
     MODAL = '#8294C4',
-    OK = 'FFEAD2',
-    CANCEL = 'DBDFEA'
+    OK = '#FFEAD2',
+    CANCEL = '#DBDFEA'
 }
 
 const theme = createTheme({
