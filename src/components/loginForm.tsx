@@ -59,7 +59,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose }) => {
               Cerrar
             </Button>
         </Box>
-        <Typography variant="body2" sx = {{color: theme.palette.info, textAlign: 'end', marginTop: '1rem'}}>
+        <Typography variant="body2" style={{color: theme.typography.body2.color, textAlign: theme.typography.body2.textAlign, marginTop: theme.typography.body2.marginTop}}>
           <a href="#">¿Se te olvidó la contraseña?</a>
         </Typography>
         </form>
