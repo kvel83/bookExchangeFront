@@ -5,9 +5,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import * as Yup from 'yup';
 import {DialogTitle, Typography, useTheme } from '@mui/material';
-// import loginValidationSchema from '../validation/validationSchema';
 import auth from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
+import ErrorModal from './errorModal';
 
 interface LoginFormProps {
   open: boolean;
@@ -20,8 +20,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose }) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{[key: string]: string}>({});
+  const [openError, setOpenError] = useState(false);
   const navigate = useNavigate();
   const theme = useTheme();
+
+  const handleOpenError = () =>{
+    setOpenError(true);
+  };
+  const handleCloseError = () => {
+    setOpenError(false);
+  }
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUsername(event.target.value);
@@ -61,11 +69,13 @@ const validationSchema = Yup.object().shape({
       }else{
         if (response.status === 401){
           setError({general: "Credenciales inválidas"});
-          alert(error.general);
+          // alert(error.general);
+          handleOpenError();
         }
         else{
           setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
-          alert(error.general);
+          // alert(error.general);
+          handleOpenError();
         }
       }
     } catch (error) {
@@ -141,6 +151,9 @@ const validationSchema = Yup.object().shape({
         </form>
       </Box>
     </Modal>
+    {openError && (
+        <ErrorModal openError={openError} onCloseError={handleCloseError} message={error.general} />
+    )}
     </>
   );
 };
