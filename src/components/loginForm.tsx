@@ -50,11 +50,8 @@ const validationSchema = Yup.object().shape({
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
-      console.log("entre al try");
       setLoading(true);
       setError({});
-      console.log(username + " " + password);
-      console.log(error);
 
       // Validación de los campos
       validationSchema.validateSync({ username, password }, {abortEarly: false});
@@ -69,12 +66,10 @@ const validationSchema = Yup.object().shape({
       }else{
         if (response.status === 401){
           setError({general: "Credenciales inválidas"});
-          // alert(error.general);
           handleOpenError();
         }
         else{
           setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
-          // alert(error.general);
           handleOpenError();
         }
       }

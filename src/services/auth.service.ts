@@ -25,19 +25,6 @@ class AuthService{
                 return 500;
             }
         });
-
-        // return axios
-            // .post(API_URL,{
-                // username,
-                // password
-            // })
-            // .then(response => {
-                // if (response.data.accessToken){
-                    // console.log(response);
-                    // localStorage.setItem("user",JSON.stringify(response.data));
-                // }
-                // return response.data;
-            // });
     }
 
     logout(){localStorage.removeItem("user")}
