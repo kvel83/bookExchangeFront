@@ -1,8 +1,7 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
-
 declare module '@mui/material/styles' {
   interface Theme{
-    logoImage?:{
+    logoImage?: {
       width: string;
       height: string;
     };
@@ -73,6 +72,13 @@ export const themeOptions: ThemeOptions = {
   kidsReading:{
     width: '30rem',
     height: '30rem',
+  },
+  typography:{
+    body2:{
+      color: '#b97ce8',
+      textAlign: 'end',
+      marginTop: '1rem',
+    }
   },
 };
 
