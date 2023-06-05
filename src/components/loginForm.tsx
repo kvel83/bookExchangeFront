@@ -5,11 +5,9 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import * as Yup from 'yup';
 import {DialogTitle, Typography, useTheme } from '@mui/material';
-import loginValidationSchema from '../validation/validationSchema';
+// import loginValidationSchema from '../validation/validationSchema';
 import auth from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
-import { setDefaultResultOrder } from 'dns';
-import { setLocale } from 'yup';
 
 interface LoginFormProps {
   open: boolean;
@@ -33,20 +31,43 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose }) => {
     setPassword(event.target.value);
   };
 
+const validationSchema = Yup.object().shape({
+    username: Yup.string().required('El usuario es obligatorio'),
+    password: Yup.string()
+      .min(8, 'La contraseña debe tener al menos 8 caracteres')
+      // .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/, 'La contraseña debe incluir al menos una mayúscula y un número')
+      .required('La contraseña es obligatoria'),
+  });
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     try {
+      console.log("entre al try");
       setLoading(true);
       setError({});
+      console.log(username + " " + password);
+      console.log(error);
 
       // Validación de los campos
-      await loginValidationSchema.validate({ username, password }, {abortEarly: false});
+      validationSchema.validateSync({ username, password }, {abortEarly: false});
 
       // Lógica de autenticación
-      await auth.login(username, password);
-      onClose();
-      navigate('/profile'); // Redireccionar a la página del perfil
-      window.location.reload();
+      const response = await auth.login(username, password);
+
+      if(response.status === 200){
+        onClose();
+        navigate('/profile'); // Redireccionar a la página del perfil
+        window.location.reload();
+      }else{
+        if (response.status === 401){
+          setError({general: "Credenciales inválidas"});
+          alert(error.general);
+        }
+        else{
+          setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
+          alert(error.general);
+        }
+      }
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         const validationErrors: {[key: string]:string } = {};
@@ -61,15 +82,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose }) => {
 
       } else {
         console.error(error + "estos no son errores de yup");
+        setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
       }
     }
       setLoading(false);
       setUsername('');
       setPassword('');
-      // setError({
-        // username:"",
-        // password: "",
-      // });
+      console.log(error);
   };
 
   const handleClose = () =>{

@@ -6,16 +6,38 @@ const API_URL = "http://localhost:8080/authenticate";
 class AuthService{
     login(username: string, password: string){
         return axios
-            .post(API_URL + "signin",{
-                username,
-                password
-            })
-            .then(response => {
-                if (response.data.accessToken){
-                    localStorage.setItem("user",JSON.stringify(response.data));
-                }
-                return response.data;
-            });
+        .post(API_URL,{
+            username,
+            password
+        })
+        .then(response => {
+            console.log("entre al then");
+            if (response.status === 200){
+                console.log(response.data);
+                localStorage.setItem("token",JSON.stringify(response.data));
+            }
+            return response;
+        })
+        .catch(error => {
+            if (error.response){
+                return error.response;
+            }else{
+                return 500;
+            }
+        });
+
+        // return axios
+            // .post(API_URL,{
+                // username,
+                // password
+            // })
+            // .then(response => {
+                // if (response.data.accessToken){
+                    // console.log(response);
+                    // localStorage.setItem("user",JSON.stringify(response.data));
+                // }
+                // return response.data;
+            // });
     }
 
     logout(){localStorage.removeItem("user")}
