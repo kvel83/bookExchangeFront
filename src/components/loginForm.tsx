@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
@@ -8,6 +8,7 @@ import {DialogTitle, Typography, useTheme } from '@mui/material';
 import auth from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import ErrorModal from './errorModal';
+import { AppContext } from '../context/AppContext';
 
 interface LoginFormProps {
   open: boolean;
@@ -15,12 +16,13 @@ interface LoginFormProps {
 }
 
 
-const LoginForm: React.FC<LoginFormProps> = ({ open, onClose }) => {
+const LoginForm: React.FC<LoginFormProps> = ({ open, onClose}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<{[key: string]: string}>({});
   const [openError, setOpenError] = useState(false);
+  const {isLoggedIn, handleLogin} = useContext(AppContext);
   const navigate = useNavigate();
   const theme = useTheme();
 
@@ -61,7 +63,8 @@ const validationSchema = Yup.object().shape({
 
       if(response.status === 200){
         onClose();
-        navigate('/profile'); // Redireccionar a la página del perfil
+        handleLogin();
+        navigate('/dashboard'); // Redireccionar a la página del perfil
         window.location.reload();
       }else{
         if (response.status === 401){

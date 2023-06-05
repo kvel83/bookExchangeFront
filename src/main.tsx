@@ -7,12 +7,10 @@ import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <CssBaseline/>
-        <ThemeProvider theme = {themeOptions}>
-          <App />
-        </ThemeProvider>
-    </React.StrictMode>
-  </BrowserRouter>,
+  <React.StrictMode>
+    <CssBaseline/>
+      <ThemeProvider theme = {themeOptions}>
+        <App />
+      </ThemeProvider>
+  </React.StrictMode>
 )

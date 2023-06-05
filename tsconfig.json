@@ -15,7 +15,8 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,                                 /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true,
+    "types": ["@mui/material"],                              /* Skip type checking all .d.ts files. */
     "paths": {
     }
   },
