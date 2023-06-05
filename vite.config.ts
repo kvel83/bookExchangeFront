@@ -3,6 +3,16 @@ import react from '@vitejs/plugin-react';
 import { dependencies } from './package.json';
 import * as path from 'path';
 
+module.exports = {
+  proxy:{
+    '/api': {
+      target: 'http://localhost:8081',
+      changeOrigin: true,
+      rewrite: (path) => path.replace(/^\/api/,'')
+    }
+  }
+};
+
 function renderChunks(deps: Record<string, string>) {
   const chunks = {};
   Object.keys(deps).forEach((key) => {

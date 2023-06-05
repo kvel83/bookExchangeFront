@@ -6,7 +6,6 @@ import LandingPage from './components/landingPage';
 
 function App() {
   return (
-  <>
     <ThemeProvider theme={themeOptions}>
       <CssBaseline/>
       <Box sx = {{display: 'flex', flexDirection: 'column', minHeight: '100vh'}}>
@@ -18,7 +17,6 @@ function App() {
           </Box>
         </Box>
     </ThemeProvider>
-  </>
   );
 }
 
