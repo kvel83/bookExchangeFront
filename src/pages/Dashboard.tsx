@@ -1,62 +1,67 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material';
+import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, useTheme } from '@mui/material';
+
+import library from '../assets/library.avif';
+import findBook from '../assets/findBook.jpeg';
+import findUser from '../assets/findUser.jpeg';
 
 const Dashboard: React.FC = () => {
+  const theme = useTheme();
   return (
     <div>
-      <Grid container spacing={2}>
+      <Grid container spacing={2} alignItems="center" marginTop={'8rem'} >
         <Grid item xs={12} sm={4}>
-          <Card>
+          <Card sx={{ width: theme.cards?.width, height: theme.cards?.height }}>
             <CardActionArea component={Link} to="/miBiblioteca">
               <CardMedia
                 component="img"
-                height="140"
-                image="../assets/library.jpg"
+                image={library}
+                className='appImages'
                 alt="Mi biblioteca"
               />
               <CardContent>
-                <Typography variant="h5" component="div">
+                <Typography variant="h6" component="div">
                   Mi biblioteca
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
         </Grid>
-        {/* <Grid item xs={12} sm={4}> */}
-          {/* <Card> */}
-            {/* <CardActionArea component={Link} to="/usuario"> */}
-              {/* <CardMedia */}
-                {/* // component="img" */}
-                {/* // height="140" */}
-                {/* // image="/ruta/imagen-usuario.jpg" */}
-                {/* // alt="Usuario" */}
-            {/* //   /> */}
-              {/* <CardContent> */}
-                {/* <Typography variant="h5" component="div"> */}
-                  {/* Usuario */}
-                {/* </Typography> */}
-              {/* </CardContent> */}
-            {/* </CardActionArea> */}
-          {/* </Card> */}
-        {/* </Grid> */}
-        {/* <Grid item xs={12} sm={4}> */}
-          {/* <Card> */}
-            {/* <CardActionArea component={Link} to="/mi-biblioteca"> */}
-              {/* <CardMedia */}
-                {/* // component="img" */}
-                {/* // height="140" */}
-                {/* // image="/ruta/imagen-mi-biblioteca.jpg" */}
-                {/* // alt="Mi Biblioteca" */}
-            {/* //   /> */}
-              {/* <CardContent> */}
-                {/* <Typography variant="h5" component="div"> */}
-                  {/* Mi Biblioteca */}
-                {/* </Typography> */}
-              {/* </CardContent> */}
-            {/* </CardActionArea> */}
-          {/* </Card> */}
-        {/* </Grid> */}
+        <Grid item xs={12} sm={4}>
+          <Card sx={{ width: theme.cards?.width, height: theme.cards?.height }}>
+            <CardActionArea component={Link} to="/findBook">
+              <CardMedia
+              component="img"
+              image={findBook}
+              className='appImages'
+              alt="Buscar libros"
+              />
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  Buscar libro
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Card sx={{ width: theme.cards?.width, height: theme.cards?.height }}>
+            <CardActionArea component={Link} to="/findUser">
+              <CardMedia
+                component="img"
+                image={findUser}
+                className='appImages'
+                alt="Mi biblioteca"
+              />
+              <CardContent>
+                <Typography variant="h6" component="div">
+                  Buscar usuario
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
       </Grid>
     </div>
   );

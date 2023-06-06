@@ -4,13 +4,20 @@ import Toolbar from '@mui/material/Toolbar';
 
 import logo from '../assets/logo.png'
 import { useTheme } from '@mui/material/styles';
-import { Button, CssBaseline } from '@mui/material';
+import { Button, CssBaseline, Typography } from '@mui/material';
 import { useState } from 'react';
 import LoginForm from './loginForm';
+import UserInformation from '../interfaces/userInformation';
+import ProfileMenu from './profileMenu';
+import LandingMenu from './landingMenu';
 
-function ResponsiveAppBar() {
+function NavBar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
-
+  const [userInformation, setUserInformation] = useState<UserInformation | null>(()=>{
+    const userFromLS = localStorage.getItem("userInformation");
+    if (userFromLS) return JSON.parse(userFromLS) as UserInformation;
+    return null;
+  });
   const handleOpenForm = () => {
     setShowLoginForm(true);
   };
@@ -28,20 +35,14 @@ function ResponsiveAppBar() {
          <img src={logo} alt='Logo' className='logo-image' style={theme.logoImage}/>
          <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'flex-end', alignContent: 'flex-end' }}>
              <Box sx={{ display: { xs: 'none', md: 'flex', justifyContent: 'flex-end', alignContent: 'flex-end', mr: 2} }}>
-                 <Button
-                     key="sigin"
-                     onClick = {handleOpenForm}
-                     sx={{ my: 2, color: 'white', display: 'block' }}
-                 >
-                  Iniciar sesión
-                 </Button>
-                 <Button
-                      key="sigup"
-                      onClick = {handleOpenForm}
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                  >
-                   Crear cuenta
-                  </Button>
+              {!userInformation && (
+                <LandingMenu handleOpenForm={handleOpenForm} handleCloseForm={handleCloseForm}/>
+                )}
+                {userInformation && (
+                  <>
+                    <ProfileMenu userInformation={userInformation}/>
+                  </>
+                )}
            </Box>
          </Box>
        </Toolbar>
@@ -51,4 +52,4 @@ function ResponsiveAppBar() {
   );
 }
 
-export default ResponsiveAppBar;
+export default NavBar;

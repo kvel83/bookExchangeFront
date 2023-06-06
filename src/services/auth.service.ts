@@ -13,8 +13,7 @@ class AuthService{
         .then(response => {
             console.log("entre al then");
             if (response.status === 200){
-                console.log(response.data);
-                localStorage.setItem("token",JSON.stringify(response.data));
+                localStorage.setItem("userInformation",JSON.stringify(response.data));
             }
             return response;
         })
@@ -27,7 +26,7 @@ class AuthService{
         });
     }
 
-    logout(){localStorage.removeItem("user")}
+    logout(){localStorage.removeItem("userInformation")}
 
     register(user: User){
         return axios

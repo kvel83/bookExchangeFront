@@ -26,7 +26,7 @@ return (
             Parece que hubo un problema
         </DialogTitle>
         <Box sx = {{display: 'flex', gap: 2, justifyContent: 'end'}}>
-            <Typography variant="body2" style={{color: theme.typography.body2.color, textAlign: theme.typography.body2.textAlign, marginTop: theme.typography.body2.marginTop}}>{message}</Typography>
+            <Typography variant="h8" style={{color: theme.typography.body2.color, textAlign: theme.typography.body2.textAlign, marginTop: theme.typography.body2.marginTop}}>{message}</Typography>
         </Box>
         <Button onClick={handleClose} variant="outlined" sx={{ mt: 2 }}>
           Cerrar
