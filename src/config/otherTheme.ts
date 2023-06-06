@@ -1,8 +1,7 @@
 import { createTheme, ThemeOptions } from '@mui/material/styles';
-
 declare module '@mui/material/styles' {
   interface Theme{
-    logoImage?:{
+    logoImage?: {
       width: string;
       height: string;
     };
@@ -11,6 +10,14 @@ declare module '@mui/material/styles' {
       height: string;
     };
     kidsReading?:{
+      width: string;
+      height: string;
+    };
+    appImages?:{
+      width: string;
+      height: string;
+    };
+    cards?:{
       width: string;
       height: string;
     };
@@ -25,6 +32,14 @@ declare module '@mui/material/styles' {
       height: string;
     };
     kidsReading?:{
+      width: string;
+      height: string;
+    };
+    appImages?:{
+      width: string;
+      height: string;
+    };
+    cards?:{
       width: string;
       height: string;
     };
@@ -73,6 +88,17 @@ export const themeOptions: ThemeOptions = {
   kidsReading:{
     width: '30rem',
     height: '30rem',
+  },
+  cards:{
+    width: '20rem',
+    height: '30rem',
+  },
+  typography:{
+    body2:{
+      color: 'rgba(63,15,121,0.76)',
+      textAlign: 'end',
+      marginTop: '1rem',
+    }
   },
 };
 

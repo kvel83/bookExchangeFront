@@ -9,9 +9,11 @@ import { useState } from 'react';
 import LoginForm from './loginForm';
 
 
-const LandingPage = () => {
+
+const LandingPage =() => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+
 
   const handleOpen = () =>{
     setOpen(true);
@@ -19,7 +21,8 @@ const LandingPage = () => {
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
+
 
   return (
     <div>
