@@ -6,25 +6,25 @@ import Fade from '@mui/material/Fade';
 import UserInformation from '../interfaces/userInformation';
 import { useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material';
+import { buttonsNavBar } from '../styles/styles';
 
 interface ProfileMenuOptions {
   userInformation: UserInformation;
+  isLoggedIn: boolean;
+  onLogout: () => void;
+  onLandingMenuClose: () => void;
 }
 
-export default function ProfileMenu({ userInformation }: ProfileMenuOptions) {
+export default function ProfileMenu({
+  userInformation,
+  isLoggedIn,
+  onLogout,
+  onLandingMenuClose,
+}: ProfileMenuOptions) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true); // Estado local para controlar si el usuario ha cerrado sesión
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
   const theme = useTheme();
-
-  React.useEffect(() => {
-    // Verificar si el usuario está almacenado en el localStorage
-    const storedUserInformation = localStorage.getItem('userInformation');
-    if (!storedUserInformation) {
-      setIsLoggedIn(false); // Actualizar el estado local si el usuario no está almacenado
-    }
-  }, []);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -32,7 +32,7 @@ export default function ProfileMenu({ userInformation }: ProfileMenuOptions) {
 
   const handleClose = () => {
     localStorage.removeItem('userInformation');
-    setIsLoggedIn(false); // Actualizar el estado local al cerrar sesión
+    onLogout(); // Llamar a la función onLogout al cerrar sesión
     navigate('/');
     setAnchorEl(null);
   };
@@ -49,7 +49,7 @@ export default function ProfileMenu({ userInformation }: ProfileMenuOptions) {
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
-        sx={{ my: 2, color: 'white', display: 'block' }}
+        sx={buttonsNavBar}
       >
         Bienvenido {userInformation.userName}
       </Button>
@@ -64,7 +64,7 @@ export default function ProfileMenu({ userInformation }: ProfileMenuOptions) {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleClose}>Perfil</MenuItem>
-        <MenuItem onClick={handleClose}>Cerrar sesión</MenuItem>
+        <MenuItem onClick={() => { handleClose(); onLandingMenuClose(); }}>Cerrar sesión</MenuItem>
       </Menu>
     </>
   );

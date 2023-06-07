@@ -5,14 +5,14 @@ import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, useThem
 import library from '../assets/library.avif';
 import findBook from '../assets/findBook.jpeg';
 import findUser from '../assets/findUser.jpeg';
+import { cardSize } from '../styles/styles';
 
 const Dashboard: React.FC = () => {
   const theme = useTheme();
   return (
-    <div>
       <Grid container spacing={2} alignItems="center" marginTop={'8rem'} >
         <Grid item xs={12} sm={4}>
-          <Card sx={{ width: theme.cards?.width, height: theme.cards?.height }}>
+          <Card sx={cardSize}>
             <CardActionArea component={Link} to="/miBiblioteca">
               <CardMedia
                 component="img"
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
           </Card>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Card sx={{ width: theme.cards?.width, height: theme.cards?.height }}>
+          <Card sx={cardSize}>
             <CardActionArea component={Link} to="/findBook">
               <CardMedia
               component="img"
@@ -46,7 +46,7 @@ const Dashboard: React.FC = () => {
           </Card>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Card sx={{ width: theme.cards?.width, height: theme.cards?.height }}>
+          <Card sx={cardSize}>
             <CardActionArea component={Link} to="/findUser">
               <CardMedia
                 component="img"
@@ -63,7 +63,6 @@ const Dashboard: React.FC = () => {
           </Card>
         </Grid>
       </Grid>
-    </div>
   );
 };
 

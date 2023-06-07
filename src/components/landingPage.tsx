@@ -7,6 +7,7 @@ import landingImage from '../assets/nombre.png';
 import kidsReading from '../assets/kidsReading.png';
 import { useState } from 'react';
 import LoginForm from './loginForm';
+import { imageLeft, kids, landingButtons, landingImages } from '../styles/styles';
 
 
 
@@ -28,8 +29,8 @@ const LandingPage =() => {
     <div>
     <CssBaseline/>
       <Container maxWidth="sm">
-        <Grid container spacing={2} sx = {{flexWrap: 'nowrap', gap: '5rem', alignItems: 'center'}}>
-          <Grid item xs={6} sx = {{display: 'flex', justifyContent: 'right', ml: '2rem', alignItems: 'center', marginTop: '2rem'}}>
+        <Grid container spacing={2} sx = {landingImages}>
+          <Grid item xs={6} sx = {imageLeft}>
             <img
               src={landingImage}
               alt="Landing Page Image"
@@ -37,7 +38,7 @@ const LandingPage =() => {
               style={theme.landingImage}
             />
           </Grid>
-          <Grid item xs={6} sx = {{display: 'flex', justifyContent: 'left', alignItems: 'center', mr: '2rem'}}>
+          <Grid item xs={6} sx = {kids}>
             <img
                 src = {kidsReading}
                 alt = "Niños leyendo"
@@ -46,7 +47,7 @@ const LandingPage =() => {
             />
           </Grid>
         </Grid>
-        <Grid container sx = {{display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', gap: 3}}>
+        <Grid container sx = {landingButtons}>
             <Button
               variant='contained'
               size = 'large'

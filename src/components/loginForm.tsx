@@ -3,11 +3,12 @@ import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import * as Yup from 'yup';
+import isStrongPassword from 'validator/lib/isStrongPassword';
 import {DialogTitle, Typography, useTheme } from '@mui/material';
 import auth from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import ErrorModal from './errorModal';
+import { boxButtons, button, modal, modalTitle, typographyModal } from '../styles/styles';
 
 interface LoginFormProps {
   open: boolean;
@@ -38,67 +39,49 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose}) => {
     setPassword(event.target.value);
   };
 
-const validationSchema = Yup.object().shape({
-    username: Yup.string().required('El usuario es obligatorio'),
-    password: Yup.string()
-      .min(8, 'La contraseña debe tener al menos 8 caracteres')
-      // .matches(/^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]+$/, 'La contraseña debe incluir al menos una mayúscula y un número')
-      .required('La contraseña es obligatoria'),
-  });
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
       setError({});
 
-      // Validación de los campos
-      validationSchema.validateSync({ username, password }, {abortEarly: false});
-
-      // Lógica de autenticación
-      const response = await auth.login(username, password);
-
-      if(response.status === 200){
-        // handleLogin();
-        navigate('/dashboard'); // Redireccionar a la página del perfil
-        onClose();
-        window.location.reload();
-      }else{
-        if (response.status === 401){
-          setError({general: "Credenciales inválidas"});
-          handleOpenError();
-        }
-        else{
-          setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
-          handleOpenError();
-        }
+      //Validación de forma de contraseña
+      if(!isStrongPassword(password,{minLength: 8, minUppercase: 1, minNumbers: 1, minSymbols: 1})){
+        setError({password: 'La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 número y 1 símbolo'});
+        return;
       }
-    } catch (error) {
-      if (error instanceof Yup.ValidationError) {
-        const validationErrors: {[key: string]:string } = {};
 
-        error.inner.forEach((err) => {
-          if (err.path && !validationErrors[err.path]){
-            validationErrors[err.path] = err.message;
+      try {
+        setError({});
+        const response = await auth.login(username, password);
+        if(response.status === 200){
+          navigate('/dashboard'); // Redireccionar a la página del perfil
+          onClose();
+          window.location.reload();
+        }else{
+          if (response.status === 401){
+            setError({general: "Credenciales inválidas"});
+            handleOpenError();
           }
-        });
-        console.log(validationErrors);
-        setError(validationErrors);
-
-      } else {
-        console.error(error + "estos no son errores de yup");
-        setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
+          else{
+            setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
+            handleOpenError();
+          }
+        }
+      }catch (error) {
+        console.error(error);
+        setError({ general: 'Presentamos problemas con el servidor, intente más tarde' });
       }
-    }
       setUsername('');
       setPassword('');
       console.log(error);
-  };
+}
 
   const handleClose = () =>{
     setError({
       username: "",
       password: "",
     });
+    setUsername('');
+    setPassword('');
     onClose();
   }
 
@@ -106,11 +89,11 @@ const validationSchema = Yup.object().shape({
   return (
     <>
     <Modal open={open} onClose={handleClose}>
-      <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', boxShadow: 24, p: 4, minWidth: 300 }}>
-        <DialogTitle sx = {{backgroundColor: theme.palette.primary.main, color: theme.palette.primary.contrastText, textAlign: 'center', borderRadius: '10px', marginBottom:'2rem'}}>Inicar sesión</DialogTitle>
+      <Box sx={modal}>
+        <DialogTitle sx = { modalTitle }>Inicar sesión</DialogTitle>
         <form onSubmit={handleSubmit}>
           <TextField
-            label="Username"
+            label="Nombre de usuario"
             value={username}
             onChange={handleUsernameChange}
             error = {!!error.username}
@@ -120,7 +103,7 @@ const validationSchema = Yup.object().shape({
             sx = {{mb:2}}
           />
           <TextField
-            label="Password"
+            label="Contraseña"
             type="password"
             value={password}
             onChange={handlePasswordChange}
@@ -130,15 +113,15 @@ const validationSchema = Yup.object().shape({
             required
             sx = {{mb:3}}
           />
-        <Box sx = {{display: 'flex', gap: 2, justifyContent: 'end'}}>
-            <Button  type="submit" variant="contained" sx={{ mt: 2 }}>
+        <Box sx = {boxButtons}>
+            <Button  type="submit" variant="contained" sx={button}>
               Iniciar sesión
             </Button>
-            <Button onClick={handleClose} variant="outlined" sx={{ mt: 2 }}>
+            <Button onClick={handleClose} variant="outlined" sx={button}>
               Cerrar
             </Button>
         </Box>
-        <Typography variant="body2" style={{color: theme.typography.body2.color, textAlign: theme.typography.body2.textAlign, marginTop: theme.typography.body2.marginTop}}>
+        <Typography variant="body2" sx={typographyModal}>
           <a href="#">¿Se te olvidó la contraseña?</a>
         </Typography>
         </form>

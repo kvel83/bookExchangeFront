@@ -11,7 +11,6 @@ class AuthService{
             password
         })
         .then(response => {
-            console.log("entre al then");
             if (response.status === 200){
                 localStorage.setItem("userInformation",JSON.stringify(response.data));
             }

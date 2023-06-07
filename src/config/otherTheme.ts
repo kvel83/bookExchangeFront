@@ -64,7 +64,7 @@ export const themeOptions: ThemeOptions = {
       primary: '#fbfaf9',
     },
     error: {
-      main: '#ea6f8c',
+      main: '#7e2e41',
     },
     warning: {
       main: '#e6c865',
@@ -89,17 +89,17 @@ export const themeOptions: ThemeOptions = {
     width: '30rem',
     height: '30rem',
   },
-  cards:{
-    width: '20rem',
-    height: '30rem',
-  },
-  typography:{
-    body2:{
-      color: 'rgba(63,15,121,0.76)',
-      textAlign: 'end',
-      marginTop: '1rem',
-    }
-  },
+  // cards:{
+    // width: '20rem',
+    // height: '30rem',
+  // },
+  // typography:{
+    // body2:{
+      // color: 'rgba(63,15,121,0.76)',
+      // textAlign: 'end',
+      // marginTop: '1rem',
+    // }
+  // },
 };
 
 export default createTheme(themeOptions);

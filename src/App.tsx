@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 import LandingPage from './components/landingPage';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import PageNotFound from './pages/pageNotFound';
 
 
 
@@ -20,6 +21,7 @@ function App() {
             <Routes>
               <Route path="/" element={<LandingPage />} />
               <Route path='/dashboard' element={(localStorage.getItem("userInformation"))? <Dashboard />:<Navigate to='/' />} />
+              <Route path='*' element={<PageNotFound />} />
             </Routes>
           </Grid>
         </Grid>
