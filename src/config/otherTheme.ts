@@ -1,3 +1,4 @@
+import { TextFieldProps } from '@mui/material';
 import { createTheme, ThemeOptions } from '@mui/material/styles';
 declare module '@mui/material/styles' {
   interface Theme{
@@ -21,6 +22,9 @@ declare module '@mui/material/styles' {
       width: string;
       height: string;
     };
+    textField?: {
+      input?: TextFieldProps['inputProps'];
+    };
   }
   interface ThemeOptions{
     logoImage?: {
@@ -42,6 +46,9 @@ declare module '@mui/material/styles' {
     cards?:{
       width: string;
       height: string;
+    };
+    textField?: {
+      input?: TextFieldProps['inputProps'];
     };
   }
 }
@@ -89,17 +96,12 @@ export const themeOptions: ThemeOptions = {
     width: '30rem',
     height: '30rem',
   },
-  // cards:{
-    // width: '20rem',
-    // height: '30rem',
-  // },
-  // typography:{
-    // body2:{
-      // color: 'rgba(63,15,121,0.76)',
-      // textAlign: 'end',
-      // marginTop: '1rem',
-    // }
-  // },
+  textField: {
+    input: {
+      inputMode: 'numeric',
+      // style: { 'app': 'textfield' },
+    },
+  }
 };
 
 export default createTheme(themeOptions);

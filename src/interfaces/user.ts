@@ -1,9 +1,8 @@
 export default interface User{
-    userFullName: string;
-    userMail: string;
-    age: number;
     userName: string;
-    password: string;
-    rol: number;
+    userEmail: string;
+    userPassword: string;
+    userAge: number;
+    role: string;
 }
 

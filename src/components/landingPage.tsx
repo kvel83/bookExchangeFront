@@ -1,4 +1,4 @@
-import { CssBaseline, DialogTitle, useTheme } from '@mui/material';
+import { CssBaseline, useTheme } from '@mui/material';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -8,12 +8,14 @@ import kidsReading from '../assets/kidsReading.png';
 import { useState } from 'react';
 import LoginForm from './loginForm';
 import { imageLeft, kids, landingButtons, landingImages } from '../styles/styles';
+import UserRegistration from './registrationForm';
 
 
 
 const LandingPage =() => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
+  const [openRegistration, setOpenRegistration] = useState(false);
 
 
   const handleOpen = () =>{
@@ -23,6 +25,15 @@ const LandingPage =() => {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleOpenRegistration = () => {
+    setOpenRegistration(true);
+  };
+
+  const handleCloseRegistration = () => {
+    setOpenRegistration(false);
+  };
+
 
 
   return (
@@ -55,9 +66,13 @@ const LandingPage =() => {
                 Iniciar sesión
             </Button>
             <LoginForm open = {open} onClose = {handleClose} />
-            <Button variant = 'outlined' size = 'large'>
+            <Button
+              variant = 'outlined'
+              size = 'large'
+              onClick={handleOpenRegistration}>
                 Crear cuenta
             </Button>
+            <UserRegistration open={openRegistration} onClose={handleCloseRegistration} />
         </Grid>
       </Container>
     </div>

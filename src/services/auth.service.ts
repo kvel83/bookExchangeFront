@@ -1,14 +1,14 @@
 import axios from "axios";
 import User from "../interfaces/user";
 
-const API_URL = "http://localhost:8080/authenticate";
+const API_URL = "http://localhost:3000/api/auth/";
 
 class AuthService{
     login(username: string, password: string){
         return axios
-        .post(API_URL,{
-            username,
-            password
+        .post(API_URL + 'signin',{
+            userName: username,
+            userPassword: password
         })
         .then(response => {
             if (response.status === 200){
@@ -28,9 +28,23 @@ class AuthService{
     logout(){localStorage.removeItem("userInformation")}
 
     register(user: User){
+        const finalUser = {
+            ...user,
+            role: '2'
+        };
         return axios
-            .post(API_URL + "signUp",{
-                user
+            .post(API_URL + "signup",finalUser)
+            .then(response => {
+                if (response.status === 200){
+                    return response;
+                }
+            })
+            .catch(error => {
+                if (error.response){
+                    return error.message
+                }else{
+                    return error.status(500);
+                }
             });
     }
 

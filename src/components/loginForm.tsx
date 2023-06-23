@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import isStrongPassword from 'validator/lib/isStrongPassword';
-import {DialogTitle, Typography, useTheme } from '@mui/material';
+import {DialogTitle, Typography } from '@mui/material';
 import auth from '../services/auth.service';
 import { useNavigate } from 'react-router-dom';
 import ErrorModal from './errorModal';
@@ -22,7 +22,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose}) => {
   const [error, setError] = useState<{[key: string]: string}>({});
   const [openError, setOpenError] = useState(false);
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleOpenError = () =>{
     setOpenError(true);
@@ -45,7 +44,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose}) => {
 
       //Validación de forma de contraseña
       if(!isStrongPassword(password,{minLength: 8, minUppercase: 1, minNumbers: 1, minSymbols: 1})){
-        setError({password: 'La contraseña debe tener al menos 8 caracteres, 1 mayúscula, 1 número y 1 símbolo'});
+        setError({password: 'Contraseña incorrecta'});
+        setUsername('');
+        setPassword('');
         return;
       }
 
@@ -60,8 +61,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose}) => {
           if (response.status === 401){
             setError({general: "Credenciales inválidas"});
             handleOpenError();
-          }
-          else{
+          }else if(response.status === 404){
+            setError({general: "Usuario incorrecto"})
+            handleOpenError();
+          }else{
             setError({general: "Presentamos problemas con el servidor, intente mas tarde"});
             handleOpenError();
           }
@@ -69,10 +72,10 @@ const LoginForm: React.FC<LoginFormProps> = ({ open, onClose}) => {
       }catch (error) {
         console.error(error);
         setError({ general: 'Presentamos problemas con el servidor, intente más tarde' });
+        handleOpenError();
       }
       setUsername('');
       setPassword('');
-      console.log(error);
 }
 
   const handleClose = () =>{

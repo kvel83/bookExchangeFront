@@ -5,7 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Fade from '@mui/material/Fade';
 import UserInformation from '../interfaces/userInformation';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material';
 import { buttonsNavBar } from '../styles/styles';
 
 interface ProfileMenuOptions {
@@ -24,7 +23,6 @@ export default function ProfileMenu({
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);

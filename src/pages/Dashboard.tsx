@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, useTheme } from '@mui/material';
+import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography } from '@mui/material';
 
 import library from '../assets/library.avif';
 import findBook from '../assets/findBook.jpeg';
@@ -8,7 +8,6 @@ import findUser from '../assets/findUser.jpeg';
 import { cardSize } from '../styles/styles';
 
 const Dashboard: React.FC = () => {
-  const theme = useTheme();
   return (
       <Grid container spacing={2} alignItems="center" marginTop={'8rem'} >
         <Grid item xs={12} sm={4}>

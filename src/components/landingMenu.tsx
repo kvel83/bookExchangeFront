@@ -1,4 +1,3 @@
-import { useTheme } from '@mui/material/styles';
 import { Button, CssBaseline } from '@mui/material';
 
 interface LandingMenuProps {
@@ -6,27 +5,25 @@ interface LandingMenuProps {
   handleCloseForm: () => void;
 }
 
-function LandingMenu({handleOpenForm, handleCloseForm}: LandingMenuProps) {
-  const theme = useTheme();
-
+function LandingMenu({handleOpenForm}: LandingMenuProps) {
   return (
     <>
-     <CssBaseline/>
+      <CssBaseline/>
         <Button
             key="sigin"
             onClick = {handleOpenForm}
             sx={{ my: 2, color: 'white', display: 'block' }}
         >
-         Iniciar sesión
+          Iniciar sesión
         </Button>
         <Button
-             key="sigup"
-             onClick = {handleOpenForm}
-             sx={{ my: 2, color: 'white', display: 'block' }}
-         >
+            key="sigup"
+            onClick = {handleOpenForm}
+            sx={{ my: 2, color: 'white', display: 'block' }}
+        >
           Crear cuenta
-         </Button>
-         </>
+        </Button>
+      </>
   )
 }
 
