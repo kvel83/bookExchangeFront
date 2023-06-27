@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import { useState } from 'react';
 import LoginForm from './loginForm';
+import RegistrationForm from './registrationForm';
 import UserInformation from '../interfaces/userInformation';
 import ProfileMenu from './profileMenu';
 import LandingMenu from './landingMenu';
@@ -13,12 +14,20 @@ import { navBarBox, navBarChange } from '../styles/styles';
 
 function NavBar() {
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [showRegistrationForm, setRegistrationForm] = useState(false);
   const [userInformation, setUserInformation] = useState<UserInformation | null>(() => {
     const userFromLS = localStorage.getItem('userInformation');
     if (userFromLS) return JSON.parse(userFromLS) as UserInformation;
     return null;
   });
   const [showLandingMenu, setShowLandingMenu] = useState(false);
+
+  const handleOpenRegistrationForm = () => {
+    setRegistrationForm(true);
+  };
+  const handleCloseRegistrationForm = () => {
+    setRegistrationForm(false);
+  };
 
   const handleOpenForm = () => {
     setShowLoginForm(true);
@@ -48,7 +57,7 @@ function NavBar() {
           <Box sx={navBarBox}>
             <Box sx={navBarChange}>
               {!userInformation && !showLandingMenu && (
-                <LandingMenu handleOpenForm={handleOpenForm} handleCloseForm={handleCloseForm} />
+                <LandingMenu handleOpenForm={handleOpenForm} handleCloseForm={handleCloseForm} handleOpenRegistrationForm={handleOpenRegistrationForm} handleCloseRegistrationForm={handleCloseRegistrationForm} />
               )}
               {userInformation && (
                 <>
@@ -65,6 +74,7 @@ function NavBar() {
         </Toolbar>
       </AppBar>
       {showLoginForm && <LoginForm open={showLoginForm} onClose={handleCloseForm} />}
+      {showRegistrationForm && <RegistrationForm open={showRegistrationForm} onClose={handleCloseRegistrationForm} />}
     </>
   );
 }

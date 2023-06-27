@@ -28,9 +28,7 @@ const UserRegistration: React.FC<UserRegistrationProps> = ({ open, onClose }) =>
   });
   const [error, setError] = useState<{[key: string]: string}>({});
   const [passwordToCheck, setPasswordToCheck] = useState('');
-  // const [openMessage, setOpenMessage] = useState(false);
   const [openError, setOpenError] = useState(false);
-  // const [showPassword, setShowPassword] = useState(false);
 
   const handleOpenError = () =>{
     setOpenError(true);
@@ -38,19 +36,6 @@ const UserRegistration: React.FC<UserRegistrationProps> = ({ open, onClose }) =>
   const handleCloseError = () => {
     setOpenError(false);
   }
-
-  // const handleClickMessage = () => {
-    // setOpenMessage(true);
-  // };
-
-  // const handleCloseMessage = () => {
-    // setOpenMessage(false);
-  // };
-
-  // const handleTogglePasswordVisibility = () => {
-    // setShowPassword((prevShowPassword) => !prevShowPassword);
-  // };
-
 
   const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
