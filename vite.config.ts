@@ -3,14 +3,15 @@ import react from '@vitejs/plugin-react';
 import { dependencies } from './package.json';
 import * as path from 'path';
 
-module.exports = {
-  proxy:{
+const config = {
+  proxy: {
     '/api': {
       target: 'http://localhost:8081',
       changeOrigin: true,
-      rewrite: (path) => path.replace(/^\/api/,'')
-    }
-  }
+      rewrite: (path) => path.replace(/^\/api/, ''),
+    },
+  },
+  // Resto del código...
 };
 
 function renderChunks(deps: Record<string, string>) {
@@ -21,9 +22,17 @@ function renderChunks(deps: Record<string, string>) {
   });
   return chunks;
 }
-// https://vitejs.dev/config/
+
 export default defineConfig({
   plugins: [react()],
+  server: {
+    watch: {
+      usePolling: true,
+    },
+    host: true,
+    strictPort: true,
+    port: 5173,
+  },
   resolve: {
     alias: [
       { find: '~', replacement: path.resolve(__dirname, 'src') },

@@ -1,0 +1,18 @@
+# Etapa de construcción
+FROM node:20
+
+WORKDIR /app
+
+COPY . /app
+
+ENV REAC_APP = /api
+
+RUN npm install
+
+RUN npm i -g serve
+
+RUN npm run build
+
+EXPOSE 5000
+
+CMD ["serve", "-s", "build"]
