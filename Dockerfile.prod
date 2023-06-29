@@ -1,18 +1,21 @@
-# Etapa de construcción
-FROM node:20
+FROM node:20 as build
+
+
+RUN yarn global add typescript
 
 WORKDIR /app
+COPY . .
 
-COPY . /app
+RUN yarn install --production
+RUN yarn build:prod
 
-ENV REAC_APP = /api
 
-RUN npm install
+FROM nginx:1.23.3 as prod
+EXPOSE 80
 
-RUN npm i -g serve
+COPY --from=build /app/dist /usr/share/nginx/html
+RUN rm /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/conf.d
 
-RUN npm run build
 
-EXPOSE 5000
-
-CMD ["serve", "-s", "build"]
+CMD [ "nginx", "-g","daemon off;"]

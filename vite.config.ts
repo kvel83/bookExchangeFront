@@ -11,7 +11,6 @@ const config = {
       rewrite: (path) => path.replace(/^\/api/, ''),
     },
   },
-  // Resto del código...
 };
 
 function renderChunks(deps: Record<string, string>) {
